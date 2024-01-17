@@ -69,29 +69,36 @@ const JobWidgetCharts = ({ dataColors, series }) => {
   )
 }
 
-const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
+const StatisticsApplicationsChart = ({
+  seriesData,
+  dataColors,
+  data,
+  duration,
+}) => {
   var statisticsApplicationColors = getChartColorsArray(dataColors)
+
+  console.log(seriesData)
 
   const series = [
     {
       name: "Dust",
       type: "column",
-      data: seriesData.companay || [],
+      data: data.dust || [],
     },
     {
       name: "CO",
       type: "column",
-      data: seriesData.newjobs || [],
+      data: data.co || [],
     },
     {
-      name: "AQI",
+      name: "CO2",
       type: "area",
-      data: seriesData.totaljobs || [],
+      data: data.co2 || [],
     },
     {
-      name: "CH4",
+      name: "NO2",
       type: "line",
-      data: seriesData.jobview || [],
+      data: data.no2 || [],
     },
   ]
   var options = {
@@ -127,7 +134,8 @@ const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
         stops: [0, 100, 100, 100],
       },
     },
-    labels: seriesData.label || [],
+
+    labels: data.label || [],
     colors: statisticsApplicationColors,
     markers: {
       size: 0,
@@ -141,7 +149,7 @@ const StatisticsApplicationsChart = ({ seriesData, dataColors }) => {
       y: {
         formatter: function (y) {
           if (typeof y !== "undefined") {
-            return y.toFixed(0) + " points"
+            return y.toFixed(0) + " ppm"
           }
           return y
         },
